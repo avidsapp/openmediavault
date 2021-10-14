@@ -1,0 +1,75 @@
+# version: "2"
+# services:
+#   proxy:
+#     image: 'jc21/nginx-proxy-manager:latest'
+#     restart: always
+#     ports:
+#       # Public HTTP Port:
+#       - '80:80'
+#       # Public HTTPS Port:
+#       - '443:443'
+#       # Admin Web Port:
+#       - '81:81'
+#     environment:
+#       # These are the settings to access your db
+#       DB_MYSQL_HOST: ${DB_MYSQL_HOST} # default: "db"
+#       DB_MYSQL_PORT: ${DB_MYSQL_PORT} # default: 3306
+#       DB_MYSQL_USER: ${DB_MYSQL_USER} # default: "npm"
+#       DB_MYSQL_PASSWORD: ${DB_MYSQL_PASSWORD} # default: "npm"
+#       DB_MYSQL_NAME: ${DB_MYSQL_NAME} # default: "npm"
+#       DISABLE_IPV6: 'true'
+#     volumes:
+#       # If using config.json file instead of env var
+#       # - ./config.json:/app/config/production.json
+#       - ./data:/data
+#       - ./letsencrypt:/etc/letsencrypt
+#     depends_on:
+#       - db
+#   db:
+#     image: yobasystems/alpine-mariadb:latest
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD} # default: 'npm'
+#       MYSQL_DATABASE: ${MYSQL_HOST} # default: 'npm'
+#       MYSQL_USER: ${MYSQL_USER} # default: 'npm'
+#       MYSQL_PASSWORD: ${MYSQL_PASSWORD} # default: 'npm'
+#     volumes:
+#       - ./data/mysql:/var/lib/mysql
+
+version: "2"
+services:
+  proxy:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: always
+    ports:
+      # Public HTTP Port:
+      - '80:80'
+      # Public HTTPS Port:
+      - '443:443'
+      # Admin Web Port:
+      - '81:81'
+    environment:
+      # These are the settings to access your db
+      DB_MYSQL_HOST: 'db' # default: 'db'
+      DB_MYSQL_PORT: 3306 # default: 3306
+      DB_MYSQL_USER: 'npm' # default: 'npm'
+      DB_MYSQL_PASSWORD: 'npm' # default: 'npm'
+      DB_MYSQL_NAME: 'npm' # default: 'npm'
+      DISABLE_IPV6: 'true'
+    volumes:
+      # If using config.json file instead of env var
+      # - ./config.json:/app/config/production.json
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+  db:
+    image: yobasystems/alpine-mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'npm' # default: 'npm'
+      MYSQL_DATABASE: 'npm' # default: 'npm'
+      MYSQL_USER: 'npm' # default: 'npm'
+      MYSQL_PASSWORD: 'npm' # default: 'npm'
+    volumes:
+      - ./data/mysql:/var/lib/mysql

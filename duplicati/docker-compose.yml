@@ -1,0 +1,15 @@
+version: "2.1"
+services:
+  duplicati:
+    image: linuxserver/duplicati
+    container_name: duplicati
+    environment:
+      - PUID=${PUID} # Determine by id <user_name>
+      - PGID=${PGID} # Determine by id <user_name>
+      - TZ=${TZ}
+    volumes:
+      - /srv/dev-disk-by-label-${LABEL1}/NAS:/NasStorage
+      - /srv/dev-disk-by-label-${LABEL2}/BACKUP:/BackupStorage
+    ports:
+      - 8200:8200
+    restart: unless-stopped

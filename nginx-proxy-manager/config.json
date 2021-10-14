@@ -1,0 +1,10 @@
+{
+  "database": {
+    "engine": "mysql",
+    "host": "db",
+    "name": "mobius",
+    "user": "mobius",
+    "password": "cl13ntadm1ncl13ntadm1ncl13ntadm1n",
+    "port": 3306
+  }
+}
